@@ -1,0 +1,659 @@
+/* =========================================================================
+   Sneaker Papi — Preset Promo Configurator
+   THEME: SNEAKER PAPI RED, BLACK & WHITE BRAND AESTHETIC
+   ========================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Barlow:wght@400&display=swap');
+
+:root {
+  --sp-red: #D6001C;
+  --sp-red-hover: #BF0019;
+  --sp-black: #000000;
+  --sp-ink: #1F2428;
+  --sp-card-bg: #FFFFFF;
+  --sp-border: #E2E8F0;
+  --content-max: 760px;
+  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 28px 16px 60px;
+  min-height: 100vh;
+  font-family: 'Barlow', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--sp-ink);
+  background-color: #F2F2F2;
+  background-image: radial-gradient(circle at 50% 10%, rgba(255, 255, 255, 0.9), transparent 42%), repeating-linear-gradient(135deg, rgba(0, 0, 0, 0.018) 0, rgba(0, 0, 0, 0.018) 1px, transparent 1px, transparent 7px);
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Fallback if background image not rendered */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(circle at 50% 48%, transparent 0 112px, rgba(0, 0, 0, 0.035) 113px 118px, transparent 119px), radial-gradient(circle at 50% 48%, transparent 0 168px, rgba(0, 0, 0, 0.025) 169px 174px, transparent 175px);
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  z-index: -1;
+}
+
+.module-container {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  position: relative;
+  z-index: 10;
+}
+
+.page-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  min-height: 58px;
+  padding: 10px 14px 10px 16px;
+  background: rgba(255, 255, 255, 0.92);
+  border-left: 4px solid var(--sp-red);
+  box-shadow: var(--card-shadow);
+}
+
+.page-heading h1 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  line-height: 1.15;
+  color: var(--sp-black);
+}
+
+.role-indicator {
+  margin-top: 4px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.role-indicator #roleLabel {
+  color: var(--sp-red);
+}
+
+.btn-switch-role {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  background: #FFFFFF;
+  color: var(--sp-black);
+  border: 1px solid var(--sp-black);
+  padding: 2px 8px;
+  cursor: pointer;
+}
+
+.btn-switch-role:hover {
+  background: var(--sp-black);
+  color: #FFFFFF;
+}
+
+/* -------------------------------------------------------------------------
+   Custom "Are you admin?" Dialog
+   ------------------------------------------------------------------------- */
+.role-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.role-modal-overlay[hidden] {
+  display: none;
+}
+
+.role-modal {
+  width: min(320px, 90vw);
+  background: #FFFFFF;
+  border: 1px solid var(--sp-border);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.3);
+}
+
+.role-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  background: var(--sp-black);
+  border-bottom: 3px solid var(--sp-red);
+}
+
+.role-modal-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  color: #FFFFFF;
+}
+
+.role-modal-close {
+  background: none;
+  border: none;
+  color: #FFFFFF;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 2px;
+}
+
+.role-modal-close:hover {
+  color: var(--sp-red);
+}
+
+.role-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 14px;
+}
+
+.btn-role-yes,
+.btn-role-no {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  padding: 7px 20px;
+  cursor: pointer;
+  border: 1px solid var(--sp-black);
+  transition: all 0.15s ease;
+}
+
+.btn-role-yes {
+  background: var(--sp-red);
+  border-color: var(--sp-red);
+  color: #FFFFFF;
+}
+
+.btn-role-yes:hover {
+  background: var(--sp-red-hover);
+  border-color: var(--sp-red-hover);
+}
+
+.btn-role-no {
+  background: #FFFFFF;
+  color: var(--sp-black);
+}
+
+.btn-role-no:hover {
+  background: var(--sp-black);
+  color: #FFFFFF;
+}
+
+.brand-badge {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  flex: 0 0 64px;
+  border-radius: 50%;
+  overflow: visible;
+  position: relative;
+}
+
+.brand-badge img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+}
+
+/* -------------------------------------------------------------------------
+   Shared Card Shell
+   ------------------------------------------------------------------------- */
+.card-section {
+  background: var(--sp-card-bg);
+  border: 1px solid var(--sp-border);
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+}
+
+/* Jet Black Header Bar */
+.card-header-bar {
+  background: var(--sp-black);
+  border-bottom: 3px solid var(--sp-red);
+  color: #FFFFFF;
+  padding: 7px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 32px;
+}
+
+.card-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  width: 100%;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #FFFFFF;
+  text-align: center;
+}
+
+.card-body {
+  padding: 12px 14px;
+}
+
+.overview-section {
+  width: 100%;
+  border-bottom: 3px solid var(--sp-red);
+}
+
+/* Remove the red line above the overview table (sits directly on top of the
+   "Button" column header). The admin section keeps its own red line since
+   this override only targets .overview-section's header bar. */
+.overview-section .card-header-bar {
+  border-bottom: none;
+}
+
+.admin-section .card-header-bar {
+  position: relative;
+  margin-right: 16px;
+  border-bottom: 3px solid var(--sp-red);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 16px) 100%, 0 100%);
+}
+
+.admin-section .card-title {
+  text-align: left;
+}
+
+/* -------------------------------------------------------------------------
+   Current Presets Overview (Table)
+   ------------------------------------------------------------------------- */
+.table-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.search-group {
+  display: flex;
+  gap: 6px;
+  flex: 1 1 260px;
+  max-width: 320px;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 0;
+  padding: 6px 9px;
+  font-family: 'Barlow', sans-serif;
+  font-size: 12px;
+  color: var(--sp-black);
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: 0;
+  transition: border-color 0.15s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--sp-red);
+}
+
+.btn-toolbar {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  background: #FFFFFF;
+  color: var(--sp-black);
+  border: 1px solid var(--sp-black);
+  padding: 0 12px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-toolbar:hover {
+  background: var(--sp-black);
+  color: #FFFFFF;
+}
+
+.btn-sort-alpha.sort-active {
+  background: var(--sp-red);
+  border-color: var(--sp-red);
+  color: #FFFFFF;
+}
+
+.btn-sort-alpha.sort-active:hover {
+  background: var(--sp-red-hover);
+  border-color: var(--sp-red-hover);
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.sp-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+
+.sp-data-table th {
+  background: var(--sp-black);
+  border-bottom: 3px solid var(--sp-red);
+  color: #FFFFFF;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 9px 14px;
+  text-align: center;
+}
+
+.sp-data-table th.sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.sp-data-table th.sortable:hover {
+  color: #FFD1D6;
+}
+
+.sort-indicator {
+  display: inline-block;
+  margin-left: 4px;
+  font-size: 10px;
+}
+
+.sp-data-table th.sort-active {
+  color: #FFFFFF;
+}
+
+.sp-data-table td {
+  padding: 10px 14px;
+  border: 1px solid #E2E8F0;
+  color: #334155;
+}
+
+.sp-data-table td.empty-row-cell {
+  text-align: center;
+  color: #94A3B8;
+  font-style: italic;
+}
+
+.sp-data-table tr:nth-child(even) td {
+  background: #F8FAFC;
+}
+
+.sp-data-table td.cell-btn-name {
+  font-weight: 700;
+  color: var(--sp-black);
+  width: 22%;
+}
+
+.sp-data-table td.cell-status {
+  font-weight: 700;
+  color: var(--sp-red);
+  width: 15%;
+}
+
+.sp-data-table td.cell-status.inactive {
+  color: #94A3B8;
+}
+
+.status-toggle {
+  font: inherit;
+  font-weight: 700;
+  color: inherit;
+  background: transparent;
+  border: 1px solid transparent;
+  padding: 2px 5px;
+  cursor: pointer;
+}
+
+.status-toggle:hover,
+.status-toggle:focus-visible {
+  border-color: currentColor;
+  outline: none;
+}
+
+.preset-actions {
+  white-space: nowrap;
+}
+
+.btn-preset-edit,
+.btn-preset-delete {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 9px;
+  border: 1px solid #CBD5E1;
+  background: #FFFFFF;
+  color: #334155;
+  cursor: pointer;
+}
+
+.btn-preset-edit:hover {
+  background: var(--sp-black);
+  border-color: var(--sp-black);
+  color: #FFFFFF;
+}
+
+.btn-preset-edit {
+  background: var(--sp-red);
+  border-color: var(--sp-red);
+  color: #FFFFFF;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 6px) 100%, 0 100%);
+}
+
+.btn-preset-delete {
+  color: var(--sp-red);
+  margin-left: 4px;
+}
+
+.btn-preset-delete:hover {
+  background: var(--sp-red);
+  border-color: var(--sp-red);
+  color: #FFFFFF;
+}
+
+.overview-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 14px;
+  margin-bottom: 10px;
+  margin-top: 8px;
+}
+
+.btn-restore-promo {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 5px 10px;
+  border: 1px solid var(--sp-black);
+  background: #F1F3F5;
+  color: #4B5563;
+  cursor: pointer;
+}
+
+.btn-restore-promo:not(:disabled) {
+  background: var(--sp-red);
+  border-color: var(--sp-red);
+  color: #FFFFFF;
+}
+
+.btn-restore-promo:hover:not(:disabled) {
+  background: var(--sp-red-hover);
+  border-color: var(--sp-red-hover);
+}
+
+.btn-restore-promo:disabled {
+  border-color: #CBD5E1;
+  background: #E2E8F0;
+  color: #94A3B8;
+  cursor: not-allowed;
+}
+
+/* -------------------------------------------------------------------------
+   Admin — Configure Preset Rules
+   ------------------------------------------------------------------------- */
+.btn-add-promo {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  background: var(--sp-red);
+  color: #FFFFFF;
+  border: none;
+  padding: 7px 14px;
+  cursor: pointer;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+  transition: all 0.15s ease;
+}
+
+.btn-add-promo:hover {
+  background: var(--sp-black);
+}
+
+.admin-preset-subcard {
+  border: 1px solid #D5D5D5;
+  border-left: 4px solid var(--sp-red);
+  background: #FFFFFF;
+  padding: 12px 14px;
+}
+
+.form-grid-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.form-grid-row.full {
+  grid-template-columns: 1fr;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.field-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--sp-black);
+  margin-bottom: 3px;
+}
+
+.field-input,
+.field-select {
+  padding: 6px 9px;
+  font-family: 'Barlow', sans-serif;
+  font-size: 12px;
+  color: var(--sp-black);
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: 0;
+  transition: border-color 0.15s ease;
+}
+
+.field-input:focus,
+.field-select:focus {
+  outline: none;
+  border-color: var(--sp-red);
+}
+
+.field-input:disabled,
+.field-select:disabled {
+  background: #F1F3F5;
+  color: #94A3B8;
+  border-color: #E2E8F0;
+  cursor: not-allowed;
+}
+
+.form-actions-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.btn-save-preset {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  background: var(--sp-red);
+  color: #FFFFFF;
+  border: none;
+  padding: 7px 16px;
+  cursor: pointer;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+  transition: all 0.15s ease;
+}
+
+.btn-save-preset:hover {
+  background: var(--sp-black);
+}
+
+/* -------------------------------------------------------------------------
+   Responsive Layout
+   ------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  body {
+    padding: 16px 10px 60px;
+    background-attachment: scroll;
+  }
+
+  .card-body {
+    padding: 14px 16px;
+  }
+
+  .form-grid-row {
+    grid-template-columns: 1fr;
+  }
+}
