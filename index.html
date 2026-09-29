@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preset Configuration | Sneaker Papi POS</title>
+  <meta name="description" content="Sneaker Papi POS preset configuration and current preset overview.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="module-container">
+    <header class="page-heading">
+      <div>
+        <h1>Preset Promo Configurator</h1>
+        <div class="role-indicator" id="roleIndicator">
+          Role: <span id="roleLabel">Cashier</span>
+          <button type="button" id="switchRoleBtn" class="btn-switch-role">Switch Role</button>
+        </div>
+      </div>
+      <div class="brand-badge" aria-label="Sneaker Papi">
+        <img src="logo.png" alt="Sneaker Papi">
+      </div>
+    </header>
+
+    <section class="card-section overview-section" aria-labelledby="overviewTitle">
+      <div class="card-header-bar">
+        <span id="overviewTitle" class="card-title">Current Presets Overview</span>
+      </div>
+      <div class="card-body">
+        <div class="table-toolbar">
+          <div class="search-group">
+            <input type="text" id="promoSearchInput" class="search-input" placeholder="Search by button, rule, type, or applies to...">
+            <button type="button" id="searchBtn" class="btn-toolbar">Search</button>
+          </div>
+          <button type="button" id="sortAlphaBtn" class="btn-toolbar btn-sort-alpha">Sort A-Z</button>
+        </div>
+        <div class="table-responsive">
+          <table class="sp-data-table">
+            <thead>
+              <tr>
+                <th class="sortable" data-sort-key="name">Button<span class="sort-indicator" data-sort-indicator="name"></span></th>
+                <th>Discount Rule</th>
+                <th class="sortable" data-sort-key="discountType">Discount Type<span class="sort-indicator" data-sort-indicator="discountType"></span></th>
+                <th>Applies To</th>
+                <th class="sortable" data-sort-key="active">Status<span class="sort-indicator" data-sort-indicator="active"></span></th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="ruleSummaryBody"></tbody>
+          </table>
+        </div>
+          <div class="overview-actions">
+            <button type="button" id="restorePromoBtn" class="btn-restore-promo" disabled>Undo</button>
+          </div>
+      </div>
+    </section>
+
+    <section class="card-section admin-section" id="adminSection" aria-labelledby="adminTitle">
+      <div class="card-header-bar">
+        <span id="adminTitle" class="card-title">Admin &mdash; Configure Preset Rules</span>
+      </div>
+      <div class="card-body">
+        <div class="admin-preset-subcard">
+          <div class="form-grid-row full">
+            <div class="form-field">
+              <label for="adminRuleName" class="field-label">BUTTON NAME</label>
+              <input type="text" id="adminRuleName" class="field-input" value="B1T1 Promo">
+            </div>
+          </div>
+          <div class="form-grid-row full">
+            <div class="form-field">
+              <label for="adminDiscountRule" class="field-label">DISCOUNT RULE</label>
+              <input type="text" id="adminDiscountRule" class="field-input" value="Flat ₱3,200 discount on eligible shoes (Buy 1 Take 1 bundle)">
+            </div>
+          </div>
+          <div class="form-grid-row">
+            <div class="form-field">
+              <label for="adminDiscountType" class="field-label">DISCOUNT TYPE</label>
+              <select id="adminDiscountType" class="field-select">
+                <option value="b1t1_bundle" selected>Flat Bundle Amount (₱)</option>
+                <option value="percentage">Percentage Off (%)</option>
+              </select>
+            </div>
+            <div class="form-field" id="discountValueAmountField">
+              <label for="adminDiscountValueAmount" class="field-label">DISCOUNT AMOUNT (₱)</label>
+              <input type="number" id="adminDiscountValueAmount" class="field-input" min="0" step="1" placeholder="e.g. 3200" value="3200">
+            </div>
+            <div class="form-field" id="discountValuePercentField" hidden>
+              <label for="adminDiscountValuePercent" class="field-label">DISCOUNT PERCENTAGE (%)</label>
+              <select id="adminDiscountValuePercent" class="field-select"></select>
+            </div>
+          </div>
+          <div class="form-grid-row full">
+            <div class="form-field">
+              <label for="adminAppliesTo" class="field-label">APPLIES TO (ITEM / CATEGORY / CONDITION)</label>
+              <input type="text" id="adminAppliesTo" class="field-input" value="eligible shoes (Buy 1 Take 1 bundle)">
+            </div>
+          </div>
+          <div class="form-actions-row">
+            <button type="button" id="btnSavePreset" class="btn-save-preset">SAVE PRESET</button>
+            <button type="button" id="addPromoBtn" class="btn-add-promo">+ ADD NEW PROMO</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <!-- Custom "Are you admin?" dialog — pinapalitan nito ang browser's
+       built-in confirm() box dahil hindi na-cu-customize ang title
+       ("Code"), button labels (OK/Cancel), o ang X close nito. -->
+  <div class="role-modal-overlay" id="roleModalOverlay" hidden>
+    <div class="role-modal" role="dialog" aria-modal="true" aria-labelledby="roleModalTitle">
+      <div class="role-modal-header">
+        <span id="roleModalTitle" class="role-modal-title">Are you admin?</span>
+        <button type="button" class="role-modal-close" id="roleModalClose" aria-label="Close">&times;</button>
+      </div>
+      <div class="role-modal-footer">
+        <button type="button" class="btn-role-yes" id="roleModalYes">Yes</button>
+        <button type="button" class="btn-role-no" id="roleModalNo">No</button>
+      </div>
+    </div>
+  </div>
+  <script src="index.js"></script>
+</body>
+</html>
